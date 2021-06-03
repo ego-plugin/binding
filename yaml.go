@@ -18,18 +18,18 @@ func (yamlBinding) Name() string {
 	return "yaml"
 }
 
-func (yamlBinding) Bind(req *http.Request, obj interface{}) error {
-	return decodeYAML(req.Body, obj)
+func (yamlBinding) Bind(req *http.Request, obj interface{}, lang string) error {
+	return decodeYAML(req.Body, obj, lang)
 }
 
-func (yamlBinding) BindBody(body []byte, obj interface{}) error {
-	return decodeYAML(bytes.NewReader(body), obj)
+func (yamlBinding) BindBody(body []byte, obj interface{}, lang string) error {
+	return decodeYAML(bytes.NewReader(body), obj, lang)
 }
 
-func decodeYAML(r io.Reader, obj interface{}) error {
+func decodeYAML(r io.Reader, obj interface{}, lang string) error {
 	decoder := yaml.NewDecoder(r)
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-	return validate(obj)
+	return validate(obj, lang)
 }

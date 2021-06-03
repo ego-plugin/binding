@@ -12,13 +12,13 @@ func (headerBinding) Name() string {
 	return "header"
 }
 
-func (headerBinding) Bind(req *http.Request, obj interface{}) error {
+func (headerBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 
 	if err := mapHeader(obj, req.Header); err != nil {
 		return err
 	}
 
-	return validate(obj)
+	return validate(obj, lang)
 }
 
 func mapHeader(ptr interface{}, h map[string][]string) error {

@@ -27,21 +27,21 @@ const (
 // the form POST.
 type Binding interface {
 	Name() string
-	Bind(*http.Request, interface{}) error
+	Bind(*http.Request, interface{}, string) error
 }
 
 // BindingBody adds BindBody method to Binding. BindBody is similar with Bind,
 // but it reads the body from supplied bytes instead of req.Body.
 type BindingBody interface {
 	Binding
-	BindBody([]byte, interface{}) error
+	BindBody([]byte, interface{}, string) error
 }
 
 // BindingUri adds BindUri method to Binding. BindUri is similar with Bind,
 // but it read the Params.
 type BindingUri interface {
 	Name() string
-	BindUri(map[string][]string, interface{}) error
+	BindUri(map[string][]string, interface{}, string) error
 }
 
 // StructValidator is the minimal interface which needs to be implemented in
@@ -104,9 +104,64 @@ func Default(method, contentType string) Binding {
 	}
 }
 
-func validate(obj interface{}) error {
-	if Validator == nil {
-		return nil
+
+func validate(obj interface{}, lang string) error {
+	switch lang {
+	case LANG_ES:
+		if _, ok := ValidatorList[LANG_ES]; ok {
+			return ValidatorList[LANG_ES].ValidateStruct(obj)
+		}
+		break
+	case LANG_FR:
+		if _, ok := ValidatorList[LANG_FR]; ok {
+			return ValidatorList[LANG_FR].ValidateStruct(obj)
+		}
+		break
+	case LANG_ID:
+		if _, ok := ValidatorList[LANG_ID]; ok {
+			return ValidatorList[LANG_ID].ValidateStruct(obj)
+		}
+		break
+	case LANG_JA:
+		if _, ok := ValidatorList[LANG_JA]; ok {
+			return ValidatorList[LANG_JA].ValidateStruct(obj)
+		}
+		break
+	case LANG_PT:
+		if _, ok := ValidatorList[LANG_PT]; ok {
+			return ValidatorList[LANG_PT].ValidateStruct(obj)
+		}
+		break
+	case LANG_PT_BR:
+		if _, ok := ValidatorList[LANG_PT_BR]; ok {
+			return ValidatorList[LANG_PT_BR].ValidateStruct(obj)
+		}
+		break
+	case LANG_RU:
+		if _, ok := ValidatorList[LANG_RU]; ok {
+			return ValidatorList[LANG_RU].ValidateStruct(obj)
+		}
+		break
+	case LANG_TR:
+		if _, ok := ValidatorList[LANG_TR]; ok {
+			return ValidatorList[LANG_TR].ValidateStruct(obj)
+		}
+		break
+	case LANG_ZH:
+		if _, ok := ValidatorList[LANG_ZH]; ok {
+			return ValidatorList[LANG_ZH].ValidateStruct(obj)
+		}
+		break
+	case LANG_ZH_TW:
+		if _, ok := ValidatorList[LANG_ZH_TW]; ok {
+			return ValidatorList[LANG_ZH_TW].ValidateStruct(obj)
+		}
+		break
+	default:
+		if _, ok := ValidatorList[LANG_EN]; ok {
+			return ValidatorList[LANG_EN].ValidateStruct(obj)
+		}
+		break
 	}
-	return Validator.ValidateStruct(obj)
+	return nil
 }

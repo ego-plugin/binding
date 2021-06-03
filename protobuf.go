@@ -17,15 +17,15 @@ func (protobufBinding) Name() string {
 	return "protobuf"
 }
 
-func (b protobufBinding) Bind(req *http.Request, obj interface{}) error {
+func (b protobufBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 	buf, err := ioutil.ReadAll(req.Body)
 	if err != nil {
 		return err
 	}
-	return b.BindBody(buf, obj)
+	return b.BindBody(buf, obj, lang)
 }
 
-func (protobufBinding) BindBody(body []byte, obj interface{}) error {
+func (protobufBinding) BindBody(body []byte, obj interface{}, lang string) error {
 	if err := proto.Unmarshal(body, obj.(proto.Message)); err != nil {
 		return err
 	}

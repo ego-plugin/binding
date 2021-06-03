@@ -30,18 +30,18 @@ func (jsonBinding) Name() string {
 	return "json"
 }
 
-func (jsonBinding) Bind(req *http.Request, obj interface{}) error {
+func (jsonBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 	if req == nil || req.Body == nil {
 		return errors.New("invalid request")
 	}
-	return decodeJSON(req.Body, obj)
+	return decodeJSON(req.Body, obj, lang)
 }
 
-func (jsonBinding) BindBody(body []byte, obj interface{}) error {
-	return decodeJSON(bytes.NewReader(body), obj)
+func (jsonBinding) BindBody(body []byte, obj interface{}, lang string) error {
+	return decodeJSON(bytes.NewReader(body), obj, lang)
 }
 
-func decodeJSON(r io.Reader, obj interface{}) error {
+func decodeJSON(r io.Reader, obj interface{}, lang string) error {
 	decoder := json.NewDecoder(r)
 	if EnableDecoderUseNumber {
 		decoder.UseNumber()
@@ -52,5 +52,5 @@ func decodeJSON(r io.Reader, obj interface{}) error {
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-	return validate(obj)
+	return validate(obj, lang)
 }

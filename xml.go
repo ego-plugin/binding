@@ -17,17 +17,17 @@ func (xmlBinding) Name() string {
 	return "xml"
 }
 
-func (xmlBinding) Bind(req *http.Request, obj interface{}) error {
-	return decodeXML(req.Body, obj)
+func (xmlBinding) Bind(req *http.Request, obj interface{}, lang string) error {
+	return decodeXML(req.Body, obj, lang)
 }
 
-func (xmlBinding) BindBody(body []byte, obj interface{}) error {
-	return decodeXML(bytes.NewReader(body), obj)
+func (xmlBinding) BindBody(body []byte, obj interface{}, lang string) error {
+	return decodeXML(bytes.NewReader(body), obj, lang)
 }
-func decodeXML(r io.Reader, obj interface{}) error {
+func decodeXML(r io.Reader, obj interface{}, lang string) error {
 	decoder := xml.NewDecoder(r)
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-	return validate(obj)
+	return validate(obj, lang)
 }

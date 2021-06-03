@@ -9,7 +9,6 @@ import (
 	"reflect"
 	"strings"
 	"sync"
-
 	"github.com/go-playground/validator/v10"
 )
 
@@ -83,6 +82,10 @@ func (v *defaultValidator) lazyinit() {
 		v.validate.SetTagName("binding")
 		v.init()
 	})
+}
+
+func (v *defaultValidator) GetValidate() *validator.Validate {
+	return v.validate
 }
 
 func (v *defaultValidator) init()  {
