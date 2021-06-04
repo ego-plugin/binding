@@ -170,5 +170,8 @@ func validate(obj interface{}, lang string) error {
 		}
 		break
 	}
-	return nil
+	if Validator == nil {
+		return nil
+	}
+	return Validator.ValidateStruct(obj)
 }
