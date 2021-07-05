@@ -10,9 +10,9 @@ func (uriBinding) Name() string {
 	return "uri"
 }
 
-func (uriBinding) BindUri(m map[string][]string, obj interface{}) error {
+func (uriBinding) BindUri(m map[string][]string, obj interface{}, lang string) error {
 	if err := mapUri(obj, m); err != nil {
 		return err
 	}
-	return validate(obj)
+	return validate(obj, lang)
 }
