@@ -6,6 +6,7 @@ package binding
 
 import (
 	"fmt"
+	"github.com/ego-plugin/binding/field"
 	"reflect"
 	"strings"
 	"sync"
@@ -90,94 +91,122 @@ func (v *defaultValidator) GetValidate() *validator.Validate {
 
 func (v *defaultValidator) init()  {
 	// 注册string数组类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Strings); ok {
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Strings); ok {
 			return val.Val
 		}
 		return nil
-	}, Strings{})
-	// 注册int32数组类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Int32s); ok {
+	}, field.Strings{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Bool); ok {
 			return val.Val
 		}
 		return nil
-	}, Int32s{})
-	// 注册int64数组类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Int64s); ok {
+	}, field.Bool{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Date); ok {
 			return val.Val
 		}
 		return nil
-	}, Int64s{})
-	// 注册float32数组类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Float32s); ok {
+	}, field.Date{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Decimal); ok {
+			return val.Decimal
+		}
+		return nil
+	}, field.Decimal{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Float32); ok {
 			return val.Val
 		}
 		return nil
-	}, Float32s{})
-	// 注册float64数组类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Float64s); ok {
+	}, field.Float32{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Float64); ok {
 			return val.Val
 		}
 		return nil
-	}, Float64s{})
-	// 注册stirng类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(String); ok {
+	}, field.Float64{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Float64s); ok {
 			return val.Val
 		}
 		return nil
-	}, String{})
-	// 注册int32类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Int32); ok {
+	}, field.Float64s{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Int32); ok {
 			return val.Val
 		}
 		return nil
-	}, Int32{})
-	// 注册int64类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Int64); ok {
+	}, field.Int32{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Int32s); ok {
 			return val.Val
 		}
 		return nil
-	}, Int64{})
-	// 注册flat32类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Float32); ok {
+	}, field.Int32s{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Int64); ok {
 			return val.Val
 		}
 		return nil
-	}, Float32{})
-	// 注册float64类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Float64); ok {
+	}, field.Int64{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Int64s); ok {
 			return val.Val
 		}
 		return nil
-	}, Float64{})
-	// 注册时间类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Time); ok {
-			return val.String()
-		}
-		return nil
-	}, Time{})
-	// 注册date类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Date); ok {
-			return val.String()
-		}
-		return nil
-	}, Date{})
-	// 注册bool类型
-	v.validate.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
-		if val, ok := field.Interface().(Bool); ok {
+	}, field.Int64s{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.String); ok {
 			return val.Val
 		}
 		return nil
-	}, Bool{})
+	}, field.String{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Time); ok {
+			return val.Val
+		}
+		return nil
+	}, field.Time{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Uint32); ok {
+			return val.Val
+		}
+		return nil
+	}, field.Uint32{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Uint32s); ok {
+			return val.Val
+		}
+		return nil
+	}, field.Uint32s{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Uint64); ok {
+			return val.Val
+		}
+		return nil
+	}, field.Uint64{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.Uint64s); ok {
+			return val.Val
+		}
+		return nil
+	}, field.Uint64s{})
 }

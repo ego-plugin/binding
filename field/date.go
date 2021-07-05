@@ -1,9 +1,10 @@
-package binding
+package field
 
 import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
+	"reflect"
 	"time"
 )
 
@@ -71,3 +72,5 @@ func (n *Date) UnmarshalJSON(b []byte) error {
 	}
 	return n.Scan(s)
 }
+
+var TypeDate = reflect.TypeOf(Date{})

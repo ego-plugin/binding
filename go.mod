@@ -7,6 +7,7 @@ require (
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/validator/v10 v10.6.1
 	github.com/golang/protobuf v1.5.2
+	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	github.com/ugorji/go/codec v1.2.6
 	gopkg.in/yaml.v2 v2.4.0
