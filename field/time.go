@@ -32,6 +32,13 @@ func (t Time) String() string {
 	return t.Val.Format(timeFormat19)
 }
 
+func (t Time) Unix() int64 {
+	if !t.Valid {
+		return 0
+	}
+	return t.Val.Unix()
+}
+
 func (t *Time) Scan(value interface{}) error {
 	var err error
 
@@ -50,6 +57,10 @@ func (t *Time) Scan(value interface{}) error {
 		return err
 	case string:
 		t.Val, err = parseDateTime(v, time.Local)
+		t.Valid = (err == nil)
+		return err
+	case int64:
+		t.Val = time.Unix(v, 0).In(time.Local)
 		t.Valid = (err == nil)
 		return err
 	}
