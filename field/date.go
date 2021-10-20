@@ -73,4 +73,8 @@ func (n *Date) UnmarshalJSON(b []byte) error {
 	return n.Scan(s)
 }
 
-var TypeDate = reflect.TypeOf(Date{})
+var (
+	_ json.Marshaler = (*Date)(nil)
+	_ json.Unmarshaler = (*Date)(nil)
+	TypeDate = reflect.TypeOf(Date{})
+)

@@ -62,4 +62,8 @@ func (n *Float64s) UnmarshalJSON(b []byte) error {
 	return n.Scan(s)
 }
 
-var TypeFloat64s = reflect.TypeOf(Float64s{})
+var (
+	_ json.Marshaler = (*Float64s)(nil)
+	_ json.Unmarshaler = (*Float64s)(nil)
+	TypeFloat64s = reflect.TypeOf(Float64s{})
+)

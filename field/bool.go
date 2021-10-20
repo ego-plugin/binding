@@ -3,6 +3,7 @@ package field
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 )
 
@@ -43,4 +44,23 @@ func (n *Bool) UnmarshalJSON(b []byte) error {
 	return n.Scan(s)
 }
 
-var TypeBool = reflect.TypeOf(Bool{})
+func (n *Bool) MarshalMsgpack() ([]byte, error) {
+	if n.Valid {
+		return msgpack.Marshal(n.Val)
+	}
+	return nullString, nil
+}
+
+func (n *Bool) UnmarshalMsgpack(b []byte) error {
+	var s interface{}
+	if err := msgpack.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	return n.Scan(s)
+}
+
+var (
+	_ json.Marshaler = (*Bool)(nil)
+	_ json.Unmarshaler = (*Bool)(nil)
+	TypeBool = reflect.TypeOf(Bool{})
+)

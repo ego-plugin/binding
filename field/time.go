@@ -84,4 +84,8 @@ func (n *Time) UnmarshalJSON(b []byte) error {
 	return n.Scan(s)
 }
 
-var TypeTime = reflect.TypeOf(Time{})
+var (
+	_ json.Marshaler = (*Time)(nil)
+	_ json.Unmarshaler = (*Time)(nil)
+	TypeTime = reflect.TypeOf(Time{})
+)

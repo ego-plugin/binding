@@ -63,4 +63,8 @@ func (n *Uint64s) UnmarshalJSON(b []byte) error {
 	return n.Scan(s)
 }
 
-var TypeUint64s = reflect.TypeOf(Uint64s{})
+var (
+	_ json.Marshaler = (*Uint64s)(nil)
+	_ json.Unmarshaler = (*Uint64s)(nil)
+	TypeUint64s = reflect.TypeOf(Uint64s{})
+)

@@ -63,4 +63,8 @@ func (ns *Strings) UnmarshalJSON(b []byte) error {
 	return ns.Scan(s)
 }
 
-var TypeStrings = reflect.TypeOf(Strings{})
+var (
+	_ json.Marshaler = (*Strings)(nil)
+	_ json.Unmarshaler = (*Strings)(nil)
+	TypeStrings = reflect.TypeOf(Strings{})
+)
