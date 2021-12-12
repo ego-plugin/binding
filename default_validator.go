@@ -7,10 +7,10 @@ package binding
 import (
 	"fmt"
 	"github.com/ego-plugin/binding/field"
+	"github.com/go-playground/validator/v10"
 	"reflect"
 	"strings"
 	"sync"
-	"github.com/go-playground/validator/v10"
 )
 
 type defaultValidator struct {
@@ -89,7 +89,7 @@ func (v *defaultValidator) GetValidate() *validator.Validate {
 	return v.validate
 }
 
-func (v *defaultValidator) init()  {
+func (v *defaultValidator) init() {
 	// 注册string数组类型
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(field.Strings); ok {
