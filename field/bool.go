@@ -60,7 +60,9 @@ func (n *Bool) UnmarshalMsgpack(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Bool)(nil)
+	_ json.Marshaler   = (*Bool)(nil)
 	_ json.Unmarshaler = (*Bool)(nil)
+	_ driver.Valuer    = (*Bool)(nil)
+
 	TypeBool = reflect.TypeOf(Bool{})
 )

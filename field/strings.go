@@ -64,7 +64,9 @@ func (ns *Strings) UnmarshalJSON(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Strings)(nil)
+	_ json.Marshaler   = (*Strings)(nil)
 	_ json.Unmarshaler = (*Strings)(nil)
+	_ driver.Valuer    = (*Strings)(nil)
+
 	TypeStrings = reflect.TypeOf(Strings{})
 )

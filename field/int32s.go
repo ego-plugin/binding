@@ -65,7 +65,9 @@ func (n *Int32s) UnmarshalJSON(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Int32s)(nil)
+	_ json.Marshaler   = (*Int32s)(nil)
 	_ json.Unmarshaler = (*Int32s)(nil)
+	_ driver.Valuer    = (*Int32s)(nil)
+
 	TypeInt32s = reflect.TypeOf(Int32s{})
 )

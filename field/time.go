@@ -85,7 +85,9 @@ func (n *Time) UnmarshalJSON(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Time)(nil)
+	_ json.Marshaler   = (*Time)(nil)
 	_ json.Unmarshaler = (*Time)(nil)
+	_ driver.Valuer    = (*Time)(nil)
+
 	TypeTime = reflect.TypeOf(Time{})
 )

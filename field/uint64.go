@@ -1,9 +1,9 @@
 package field
 
 import (
-"database/sql/driver"
-"encoding/json"
-"reflect"
+	"database/sql/driver"
+	"encoding/json"
+	"reflect"
 )
 
 type Uint64 struct {
@@ -45,7 +45,9 @@ func (n *Uint64) UnmarshalJSON(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Uint64)(nil)
+	_ json.Marshaler   = (*Uint64)(nil)
 	_ json.Unmarshaler = (*Uint64)(nil)
+	_ driver.Valuer    = (*Uint64)(nil)
+
 	TypeUint64 = reflect.TypeOf(Uint64{})
 )

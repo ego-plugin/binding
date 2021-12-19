@@ -63,7 +63,9 @@ func (n *Float64s) UnmarshalJSON(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Float64s)(nil)
+	_ json.Marshaler   = (*Float64s)(nil)
 	_ json.Unmarshaler = (*Float64s)(nil)
+	_ driver.Valuer    = (*Float64s)(nil)
+
 	TypeFloat64s = reflect.TypeOf(Float64s{})
 )

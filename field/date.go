@@ -74,7 +74,9 @@ func (n *Date) UnmarshalJSON(b []byte) error {
 }
 
 var (
-	_ json.Marshaler = (*Date)(nil)
+	_ json.Marshaler   = (*Date)(nil)
 	_ json.Unmarshaler = (*Date)(nil)
+	_ driver.Valuer    = (*Date)(nil)
+
 	TypeDate = reflect.TypeOf(Date{})
 )
