@@ -74,77 +74,77 @@ func init() {
 			value.Engine()
 			l := es.New()
 			uni_es = ut.New(l, l)
-			trans, _ := uni_en.GetTranslator("es")
+			trans, _ := uni_es.GetTranslator(LANG_ES)
 			es_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_FR:
 			value.Engine()
 			l := fr.New()
 			uni_fr = ut.New(l, l)
-			trans, _ := uni_fr.GetTranslator("fr")
+			trans, _ := uni_fr.GetTranslator(LANG_FR)
 			fr_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_ID:
 			value.Engine()
 			l := id.New()
 			uni_id = ut.New(l, l)
-			trans, _ := uni_id.GetTranslator("id")
+			trans, _ := uni_id.GetTranslator(LANG_ID)
 			id_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_JA:
 			value.Engine()
 			l := ja.New()
 			uni_ja = ut.New(l, l)
-			trans, _ := uni_ja.GetTranslator("ja")
+			trans, _ := uni_ja.GetTranslator(LANG_JA)
 			ja_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_PT:
 			value.Engine()
 			l := pt.New()
 			uni_pt = ut.New(l, l)
-			trans, _ := uni_pt.GetTranslator("pt")
+			trans, _ := uni_pt.GetTranslator(LANG_PT)
 			pt_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_PT_BR:
 			value.Engine()
 			l := pt_BR.New()
 			uni_pt_BR = ut.New(l, l)
-			trans, _ := uni_pt_BR.GetTranslator("pt_BR")
+			trans, _ := uni_pt_BR.GetTranslator(LANG_PT_BR)
 			pt_BR_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_RU:
 			value.Engine()
 			l := ru.New()
 			uni_ru = ut.New(l, l)
-			trans, _ := uni_ru.GetTranslator("ru")
+			trans, _ := uni_ru.GetTranslator(LANG_RU)
 			ru_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_TR:
 			value.Engine()
 			l := ru.New()
 			uni_tr = ut.New(l, l)
-			trans, _ := uni_tr.GetTranslator("tr")
+			trans, _ := uni_tr.GetTranslator(LANG_TR)
 			tr_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_ZH:
 			value.Engine()
 			l := zh.New()
 			uni_zh = ut.New(l, l)
-			trans, _ := uni_zh.GetTranslator("zh")
+			trans, _ := uni_zh.GetTranslator(LANG_ZH)
 			zh_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		case LANG_ZH_TW:
 			value.Engine()
 			l := zh_TW.New()
 			uni_zh_TW = ut.New(l, l)
-			trans, _ := uni_zh_TW.GetTranslator("zh_TW")
+			trans, _ := uni_zh_TW.GetTranslator(LANG_ZH_TW)
 			zh_TW_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		default:
 			value.Engine()
 			l := en.New()
 			uni_en = ut.New(l, l)
-			trans, _ := uni_en.GetTranslator("en")
+			trans, _ := uni_en.GetTranslator(LANG_EN)
 			en_translations.RegisterDefaultTranslations(value.GetValidate(), trans)
 			break
 		}
