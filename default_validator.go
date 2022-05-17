@@ -6,7 +6,7 @@ package binding
 
 import (
 	"fmt"
-	"github.com/ego-plugin/binding/field"
+	"github.com/ego-plugin/field"
 	"github.com/go-playground/validator/v10"
 	"reflect"
 	"strings"
