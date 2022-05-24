@@ -4,6 +4,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/ego-plugin/field v0.0.0-20220517132435-901a95e510bd h1:ssc2kGon9N/WtLzOA6X+ffZ6m72m7WgAqI3et0rgjRo=
 github.com/ego-plugin/field v0.0.0-20220517132435-901a95e510bd/go.mod h1:OcPn3LAUT5YkC+ab7/I+UiMnC1MeoBKnxZpRHwyxWtE=
+github.com/ego-plugin/field v0.0.0-20220524010519-37fe1fc9cf4f h1:DBMs7OfdFh9VhUh22jQqCU0ZS32Df0jf+rI+0mP/oaw=
+github.com/ego-plugin/field v0.0.0-20220524010519-37fe1fc9cf4f/go.mod h1:OcPn3LAUT5YkC+ab7/I+UiMnC1MeoBKnxZpRHwyxWtE=
 github.com/go-playground/assert/v2 v2.0.1 h1:MsBgLAaY856+nPRTKrp3/OZK38U/wa0CcBYNjji3q3A=
 github.com/go-playground/assert/v2 v2.0.1/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvScMdVu0Titje2rxJ4=
 github.com/go-playground/locales v0.14.0 h1:u50s323jtVGugKlcYeyzC0etD1HifMjqmJqb8WugfUU=

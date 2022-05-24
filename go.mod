@@ -3,7 +3,7 @@ module github.com/ego-plugin/binding
 go 1.17
 
 require (
-	github.com/ego-plugin/field v0.0.0-20220517132435-901a95e510bd
+	github.com/ego-plugin/field v0.0.0-20220524010519-37fe1fc9cf4f
 	github.com/go-playground/locales v0.14.0
 	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator/v10 v10.11.0

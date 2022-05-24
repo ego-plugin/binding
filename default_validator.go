@@ -209,4 +209,11 @@ func (v *defaultValidator) init() {
 		}
 		return nil
 	}, field.Uint64s{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.JSON); ok {
+			return val.Val
+		}
+		return nil
+	}, field.JSON{})
 }

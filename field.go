@@ -168,4 +168,10 @@ func init() {
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
+
+	RegisterFormType.Bind(field.JSONType, func(inputValue []string) (reflect.Value, error) {
+		v := field.JSON{}
+		err := v.Scan(inputValue)
+		return reflect.ValueOf(v), err
+	})
 }
