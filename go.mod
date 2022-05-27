@@ -1,9 +1,8 @@
 module github.com/ego-plugin/binding
 
-go 1.17
+go 1.18
 
 require (
-	github.com/ego-plugin/field v0.0.0-20220524010519-37fe1fc9cf4f
 	github.com/go-playground/locales v0.14.0
 	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator/v10 v10.11.0
@@ -13,6 +12,7 @@ require (
 )
 
 require (
+	github.com/ego-plugin/fields v0.0.0-20220527075506-9ee886c8828f // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect

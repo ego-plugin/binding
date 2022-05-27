@@ -6,11 +6,12 @@ package binding
 
 import (
 	"fmt"
-	"github.com/ego-plugin/field"
+	"github.com/ego-plugin/fields"
 	"github.com/go-playground/validator/v10"
 	"reflect"
 	"strings"
 	"sync"
+	"time"
 )
 
 type defaultValidator struct {
@@ -92,18 +93,18 @@ func (v *defaultValidator) GetValidate() *validator.Validate {
 func (v *defaultValidator) init() {
 	// 注册string数组类型
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Strings); ok {
+		if val, ok := value.Interface().(field.FORM[string]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Strings{})
+	}, field.FORM[string]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Bool); ok {
+		if val, ok := value.Interface().(field.FORM[bool]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Bool{})
+	}, field.FORM[bool]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(field.Date); ok {
@@ -120,60 +121,102 @@ func (v *defaultValidator) init() {
 	}, field.Decimal{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Float32); ok {
+		if val, ok := value.Interface().(field.FORM[float32]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Float32{})
+	}, field.FORM[float32]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Float64); ok {
+		if val, ok := value.Interface().(field.FORM[float64]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Float64{})
+	}, field.FORM[float64]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Float64s); ok {
+		if val, ok := value.Interface().(field.FORM[int32]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Float64s{})
+	}, field.FORM[int32]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Int32); ok {
+		if val, ok := value.Interface().(field.FORM[int]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Int32{})
+	}, field.FORM[int]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Int32s); ok {
+		if val, ok := value.Interface().(field.FORM[int8]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Int32s{})
+	}, field.FORM[int8]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Int64); ok {
+		if val, ok := value.Interface().(field.FORM[int16]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Int64{})
+	}, field.FORM[int16]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Int64s); ok {
+		if val, ok := value.Interface().(field.FORM[int32]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Int64s{})
+	}, field.FORM[int32]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.String); ok {
+		if val, ok := value.Interface().(field.FORM[int64]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.String{})
+	}, field.FORM[int64]{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.FORM[uint32]); ok {
+			return val.Val
+		}
+		return nil
+	}, field.FORM[uint32]{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.FORM[uint]); ok {
+			return val.Val
+		}
+		return nil
+	}, field.FORM[uint]{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.FORM[uint8]); ok {
+			return val.Val
+		}
+		return nil
+	}, field.FORM[uint8]{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.FORM[uint16]); ok {
+			return val.Val
+		}
+		return nil
+	}, field.FORM[uint16]{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.FORM[uint32]); ok {
+			return val.Val
+		}
+		return nil
+	}, field.FORM[uint32]{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(field.FORM[uint64]); ok {
+			return val.Val
+		}
+		return nil
+	}, field.FORM[uint64]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(field.Time); ok {
@@ -183,32 +226,11 @@ func (v *defaultValidator) init() {
 	}, field.Time{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Uint32); ok {
+		if val, ok := value.Interface().(field.FORM[time.Time]); ok {
 			return val.Val
 		}
 		return nil
-	}, field.Uint32{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Uint32s); ok {
-			return val.Val
-		}
-		return nil
-	}, field.Uint32s{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Uint64); ok {
-			return val.Val
-		}
-		return nil
-	}, field.Uint64{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(field.Uint64s); ok {
-			return val.Val
-		}
-		return nil
-	}, field.Uint64s{})
+	}, field.FORM[time.Time]{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(field.JSON); ok {
