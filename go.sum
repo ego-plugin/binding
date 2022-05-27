@@ -6,6 +6,8 @@ github.com/ego-plugin/field v0.0.0-20220524010519-37fe1fc9cf4f h1:DBMs7OfdFh9VhU
 github.com/ego-plugin/field v0.0.0-20220524010519-37fe1fc9cf4f/go.mod h1:OcPn3LAUT5YkC+ab7/I+UiMnC1MeoBKnxZpRHwyxWtE=
 github.com/ego-plugin/fields v0.0.0-20220527075506-9ee886c8828f h1:1dDv2JQidtpOQKaJrctIW5ANuXHkMvRUfUp3BBO92IY=
 github.com/ego-plugin/fields v0.0.0-20220527075506-9ee886c8828f/go.mod h1:WLpIMzWqC08bSpghVVIIbwhbiPAopRR0w3rQ7vSO5Ck=
+github.com/ego-plugin/fields v0.0.0-20220527083332-3a7c006ba835 h1:V22zBKkUeuu6TOgWSaDr+7c7E5POdp3BO4tAzaYBi5A=
+github.com/ego-plugin/fields v0.0.0-20220527083332-3a7c006ba835/go.mod h1:WLpIMzWqC08bSpghVVIIbwhbiPAopRR0w3rQ7vSO5Ck=
 github.com/go-playground/assert/v2 v2.0.1 h1:MsBgLAaY856+nPRTKrp3/OZK38U/wa0CcBYNjji3q3A=
 github.com/go-playground/assert/v2 v2.0.1/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvScMdVu0Titje2rxJ4=
 github.com/go-playground/locales v0.14.0 h1:u50s323jtVGugKlcYeyzC0etD1HifMjqmJqb8WugfUU=

@@ -12,7 +12,7 @@ require (
 )
 
 require (
-	github.com/ego-plugin/fields v0.0.0-20220527075506-9ee886c8828f // indirect
+	github.com/ego-plugin/fields v0.0.0-20220527083332-3a7c006ba835 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect

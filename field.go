@@ -74,116 +74,116 @@ func setTypesField(value reflect.Value, inputValue []string) error {
 }
 
 func init() {
-	RegisterFormType.Bind(field.FormTypeBool, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[bool]{}
+	RegisterFormType.Bind(fields.FormTypeBool, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[bool]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.DateType, func(inputValue []string) (reflect.Value, error) {
-		v := field.Date{}
+	RegisterFormType.Bind(fields.DateType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Date{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.DecimalType, func(inputValue []string) (reflect.Value, error) {
-		v := field.Decimal{}
+	RegisterFormType.Bind(fields.DecimalType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Decimal{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeFloat32, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[float32]{}
+	RegisterFormType.Bind(fields.FormTypeFloat32, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[float32]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeFloat64, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[float64]{}
+	RegisterFormType.Bind(fields.FormTypeFloat64, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[float64]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeInt, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[int]{}
+	RegisterFormType.Bind(fields.FormTypeInt, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[int]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeInt8, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[int8]{}
+	RegisterFormType.Bind(fields.FormTypeInt8, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[int8]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeInt16, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[int16]{}
+	RegisterFormType.Bind(fields.FormTypeInt16, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[int16]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeInt32, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[int32]{}
+	RegisterFormType.Bind(fields.FormTypeInt32, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[int32]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeInt64, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[int64]{}
+	RegisterFormType.Bind(fields.FormTypeInt64, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[int64]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeUint, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[uint]{}
+	RegisterFormType.Bind(fields.FormTypeUint, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[uint]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeUint8, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[uint8]{}
+	RegisterFormType.Bind(fields.FormTypeUint8, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[uint8]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeUint16, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[uint16]{}
+	RegisterFormType.Bind(fields.FormTypeUint16, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[uint16]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeUint32, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[uint32]{}
+	RegisterFormType.Bind(fields.FormTypeUint32, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[uint32]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeUint64, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[uint64]{}
+	RegisterFormType.Bind(fields.FormTypeUint64, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[uint64]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.TimeType, func(inputValue []string) (reflect.Value, error) {
-		v := field.Time{}
+	RegisterFormType.Bind(fields.TimeType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Time{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeTime, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[time.Time]{}
+	RegisterFormType.Bind(fields.FormTypeTime, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[time.Time]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.FormTypeString, func(inputValue []string) (reflect.Value, error) {
-		v := field.FORM[string]{}
+	RegisterFormType.Bind(fields.FormTypeString, func(inputValue []string) (reflect.Value, error) {
+		v := fields.FORM[string]{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(field.JSONType, func(inputValue []string) (reflect.Value, error) {
-		v := field.JSON{}
+	RegisterFormType.Bind(fields.JSONType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.JSON{}
 		err := v.Scan(inputValue)
 		return reflect.ValueOf(v), err
 	})
