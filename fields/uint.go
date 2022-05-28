@@ -57,7 +57,7 @@ func (n *Uint) UnmarshalJSON(b []byte) error {
 		return n.Scan(nil)
 	}
 	bytesBuffer := bytes.NewBuffer(b)
-	err := binary.Read(bytesBuffer, binary.BigEndian, &n.Val)
+	err := binary.Read(bytesBuffer, binary.BigEndian, n.Val)
 	n.Valid = err == nil
 	return err
 }
