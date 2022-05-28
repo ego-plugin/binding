@@ -49,7 +49,7 @@ func (n String) MarshalJSON() ([]byte, error) {
 	if n.Valid {
 		return json.Marshal(n.Val)
 	}
-	return nullString, nil
+	return nil, nil
 }
 
 func (n *String) UnmarshalJSON(b []byte) error {
@@ -69,7 +69,7 @@ func (n String) MarshalMsgpack() ([]byte, error) {
 	if n.Valid {
 		return msgpack.Marshal(n.Val)
 	}
-	return nullString, nil
+	return nil, nil
 }
 
 func (n *String) UnmarshalMsgpack(b []byte) error {
