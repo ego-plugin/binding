@@ -90,6 +90,7 @@ func (n *Time) Scan(value interface{}) error {
 
 func (n Time) MarshalJSON() ([]byte, error) {
 	if n.Valid {
+		return n.Val.MarshalJSON()
 		return json.Marshal(n.Val.Format(timeFormat19))
 	}
 	return nullString, nil

@@ -3,8 +3,7 @@ package fields
 import (
 	"bytes"
 	"database/sql/driver"
-	"encoding/json"
-	"github.com/vmihailenco/msgpack/v5"
+	"encoding/binary"
 	"reflect"
 )
 
@@ -46,43 +45,29 @@ func (n *Int64) Ptr() *int64 {
 }
 
 func (n Int64) MarshalJSON() ([]byte, error) {
-	if n.Valid {
-		return json.Marshal(n.Val)
+	bytesBuffer := bytes.NewBuffer([]byte{})
+	if err := binary.Write(bytesBuffer, binary.BigEndian, n.Val); err != nil {
+		return nil, err
 	}
-	return nullString, nil
+	return bytesBuffer.Bytes(), nil
 }
 
 func (n *Int64) UnmarshalJSON(b []byte) error {
-	// scan for null
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	if err := json.Unmarshal(b, &n.Val); err != nil {
-		n.Valid = false
-		return err
-	}
-	n.Valid = true
-	return nil
+	bytesBuffer := bytes.NewBuffer(b)
+	err := binary.Read(bytesBuffer, binary.BigEndian, &n.Val)
+	n.Valid = err == nil
+	return err
 }
 
 func (n Int64) MarshalMsgpack() ([]byte, error) {
-	if n.Valid {
-		return msgpack.Marshal(n.Val)
-	}
-	return nullString, nil
+	return n.MarshalJSON()
 }
 
 func (n *Int64) UnmarshalMsgpack(b []byte) error {
-	// scan for null
-	if bytes.Equal(b, nullString) {
-		return n.Scan(nil)
-	}
-	if err := msgpack.Unmarshal(b, n.Val); err != nil {
-		n.Valid = false
-		return err
-	}
-	n.Valid = true
-	return nil
+	return n.UnmarshalJSON(b)
 }
 
 var (
