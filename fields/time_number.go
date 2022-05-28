@@ -3,7 +3,9 @@ package fields
 import (
 	"bytes"
 	"database/sql/driver"
+	"encoding/json"
 	"errors"
+	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 	"time"
 )
@@ -72,6 +74,10 @@ func (n *TimeNumber) Scan(value interface{}) error {
 		n.Val = time.Unix(v, 0).In(Location)
 		n.Valid = (err == nil)
 		return err
+	case int, int8, int16, int32, uint, uint8, uint16, uint32, uint64:
+		n.Val, err = parseDateTime(asString(v), Location)
+		n.Valid = (err == nil)
+		return err
 	}
 
 	n.Valid = false
@@ -79,32 +85,41 @@ func (n *TimeNumber) Scan(value interface{}) error {
 }
 
 func (n TimeNumber) MarshalJSON() ([]byte, error) {
-	if y := n.Val.Year(); y < 0 || y >= 10000 {
-		// RFC 3339 is clear that years are 4 digits exactly.
-		// See golang.org/issue/4556#c15 for more discussion.
-		return nil, errors.New("Time.MarshalJSON: year outside of range [0,9999]")
+	if !n.Valid {
+		return nullString, nil
 	}
-
-	b := make([]byte, 0, len(timeDateFormat)+2)
-	b = append(b, '"')
-	b = n.Val.AppendFormat(b, timeDateFormat)
-	b = append(b, '"')
-	return b, nil
+	return json.Marshal(n.Unix())
 }
 
 func (n *TimeNumber) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	return n.Scan(b)
+	var s any
+	if err := json.Unmarshal(b, &s); err != nil {
+		n.Valid = false
+		return err
+	}
+	return n.Scan(s)
 }
 
 func (n TimeNumber) MarshalMsgpack() ([]byte, error) {
-	return n.MarshalJSON()
+	if !n.Valid {
+		return nullString, nil
+	}
+	return msgpack.Marshal(n.Unix())
 }
 
 func (n *TimeNumber) UnmarshalMsgpack(b []byte) error {
-	return n.UnmarshalJSON(b)
+	if bytes.Equal(b, nullString) {
+		return n.Scan(nil)
+	}
+	var s any
+	if err := msgpack.Unmarshal(b, &s); err != nil {
+		n.Valid = false
+		return err
+	}
+	return n.Scan(s)
 }
 
 var (

@@ -1,7 +1,9 @@
 package fields
 
 import (
+	"bytes"
 	"github.com/shopspring/decimal"
+	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 )
 
@@ -25,12 +27,23 @@ func (d *Decimal) Ptr() *decimal.NullDecimal {
 
 // UnmarshalMsgpack implements the msgpack.UnmarshalMsgpack interface.
 func (d *Decimal) UnmarshalMsgpack(b []byte) error {
-	return d.UnmarshalJSON(b)
+	if bytes.Equal(b, nullString) {
+		return d.Scan(nil)
+	}
+	var s any
+	if err := msgpack.Unmarshal(b, &s); err != nil {
+		d.Valid = false
+		return err
+	}
+	return d.Scan(s)
 }
 
 // MarshalMsgpack implements the msgpack.MarshalMsgpack interface.
 func (d Decimal) MarshalMsgpack() ([]byte, error) {
-	return d.MarshalJSON()
+	if !d.Valid {
+		return nullString, nil
+	}
+	return d.MarshalText()
 }
 
 var (

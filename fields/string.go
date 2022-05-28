@@ -3,7 +3,8 @@ package fields
 import (
 	"bytes"
 	"database/sql/driver"
-	"encoding/binary"
+	"encoding/json"
+	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 )
 
@@ -45,26 +46,39 @@ func (n String) Value() (driver.Value, error) {
 }
 
 func (n String) MarshalJSON() ([]byte, error) {
-	bytesBuffer := bytes.NewBuffer([]byte{})
-	if err := binary.Write(bytesBuffer, binary.BigEndian, n.Val); err != nil {
-		return nil, err
+	if !n.Valid {
+		return nullString, nil
 	}
-	return bytesBuffer.Bytes(), nil
+	return json.Marshal(n.Val)
 }
 
 func (n *String) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	return n.Scan(b)
+	if err := json.Unmarshal(b, &n.Val); err != nil {
+		n.Valid = false
+		return err
+	}
+	return nil
 }
 
 func (n String) MarshalMsgpack() ([]byte, error) {
-	return n.MarshalJSON()
+	if !n.Valid {
+		return nullString, nil
+	}
+	return msgpack.Marshal(n.Val)
 }
 
 func (n *String) UnmarshalMsgpack(b []byte) error {
-	return n.UnmarshalJSON(b)
+	if bytes.Equal(b, nullString) {
+		return n.Scan(nil)
+	}
+	if err := msgpack.Unmarshal(b, &n.Val); err != nil {
+		n.Valid = false
+		return err
+	}
+	return nil
 }
 
 var (

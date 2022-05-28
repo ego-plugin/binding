@@ -3,8 +3,9 @@ package fields
 import (
 	"bytes"
 	"database/sql/driver"
-	"encoding/binary"
+	"encoding/json"
 	"errors"
+	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 	"time"
 )
@@ -43,7 +44,7 @@ func (n TimeDate) String() string {
 	if !n.Valid {
 		return ""
 	}
-	return n.Val.Format(timeFormat19)
+	return n.Val.Format(timeDateFormat)
 }
 
 func (n TimeDate) Unix() int64 {
@@ -77,6 +78,10 @@ func (n *TimeDate) Scan(value interface{}) error {
 		n.Val = time.Unix(v, 0).In(Location)
 		n.Valid = (err == nil)
 		return err
+	case int, int8, int16, int32, uint, uint8, uint16, uint32, uint64:
+		n.Val, err = parseDateTime(asString(v), Location)
+		n.Valid = (err == nil)
+		return err
 	}
 
 	n.Valid = false
@@ -84,26 +89,41 @@ func (n *TimeDate) Scan(value interface{}) error {
 }
 
 func (n TimeDate) MarshalJSON() ([]byte, error) {
-	bytesBuffer := bytes.NewBuffer([]byte{})
-	if err := binary.Write(bytesBuffer, binary.BigEndian, n.Unix()); err != nil {
-		return nil, err
+	if !n.Valid {
+		return nullString, nil
 	}
-	return bytesBuffer.Bytes(), nil
+	return json.Marshal(n.String())
 }
 
 func (n *TimeDate) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	return n.Scan(b)
+	var s any
+	if err := json.Unmarshal(b, &s); err != nil {
+		n.Valid = false
+		return err
+	}
+	return n.Scan(s)
 }
 
 func (n TimeDate) MarshalMsgpack() ([]byte, error) {
-	return n.MarshalJSON()
+	if !n.Valid {
+		return nullString, nil
+	}
+	return msgpack.Marshal(n.String())
 }
 
 func (n *TimeDate) UnmarshalMsgpack(b []byte) error {
-	return n.UnmarshalJSON(b)
+	if bytes.Equal(b, nullString) {
+		return n.Scan(nil)
+	}
+	var s any
+	if err := msgpack.Unmarshal(b, &s); err != nil {
+		n.Valid = false
+		return err
+	}
+	return n.Scan(s)
 }
 
 var (
