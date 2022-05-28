@@ -106,11 +106,18 @@ func (v *defaultValidator) init() {
 	}, fields.Bool{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.Date); ok {
+		if val, ok := value.Interface().(fields.TimeDate); ok {
 			return val.Val
 		}
 		return nil
-	}, fields.Date{})
+	}, fields.TimeDate{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.TimeNumber); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.TimeNumber{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(fields.Time); ok {

@@ -85,8 +85,14 @@ func init() {
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(fields.DateType, func(inputValue []string) (reflect.Value, error) {
-		v := fields.Date{}
+	RegisterFormType.Bind(fields.TimeDateType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.TimeDate{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.TimeNumberType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.TimeNumber{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
