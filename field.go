@@ -1,10 +1,9 @@
 package binding
 
 import (
-	"github.com/ego-plugin/fields"
+	"github.com/ego-plugin/binding/fields"
 	"reflect"
 	"sync"
-	"time"
 )
 
 var (
@@ -22,7 +21,7 @@ type bindType struct {
 	lock *sync.RWMutex
 }
 
-// RegisterFormBindType
+// FormBindType
 // 表单绑定类型注册(表单值) 付值,错误
 type FormBindType func(inputValue []string) (reflect.Value, error)
 
@@ -40,7 +39,7 @@ func (p *bindType) Bind(t reflect.Type, fn FormBindType) {
 	p.m[t] = fn
 }
 
-// 取得数据
+// Get 取得数据
 func (p *bindType) Get() map[reflect.Type]FormBindType {
 	p.lock.RLock()
 	defer p.lock.RUnlock()
@@ -74,8 +73,14 @@ func setTypesField(value reflect.Value, inputValue []string) error {
 }
 
 func init() {
-	RegisterFormType.Bind(fields.FormTypeBool, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[bool]{}
+	RegisterFormType.Bind(fields.StringType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.String{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.BoolType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Bool{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
@@ -92,99 +97,57 @@ func init() {
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(fields.FormTypeFloat32, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[float32]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeFloat64, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[float64]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeInt, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[int]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeInt8, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[int8]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeInt16, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[int16]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeInt32, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[int32]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeInt64, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[int64]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeUint, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[uint]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeUint8, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[uint8]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeUint16, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[uint16]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeUint32, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[uint32]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
-	RegisterFormType.Bind(fields.FormTypeUint64, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[uint64]{}
-		err := v.Scan(inputValue[0])
-		return reflect.ValueOf(v), err
-	})
-
 	RegisterFormType.Bind(fields.TimeType, func(inputValue []string) (reflect.Value, error) {
 		v := fields.Time{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(fields.FormTypeTime, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[time.Time]{}
+	RegisterFormType.Bind(fields.Float32Type, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Float32{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(fields.FormTypeString, func(inputValue []string) (reflect.Value, error) {
-		v := fields.FORM[string]{}
+	RegisterFormType.Bind(fields.Float64Type, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Float64{}
 		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 
-	RegisterFormType.Bind(fields.JSONType, func(inputValue []string) (reflect.Value, error) {
-		v := fields.JSON{}
-		err := v.Scan(inputValue)
+	RegisterFormType.Bind(fields.IntType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Int{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.Int32Type, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Int32{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.Int64Type, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Int64{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.UintType, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Uint{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.Uint32Type, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Uint32{}
+		err := v.Scan(inputValue[0])
+		return reflect.ValueOf(v), err
+	})
+
+	RegisterFormType.Bind(fields.Uint64Type, func(inputValue []string) (reflect.Value, error) {
+		v := fields.Uint{}
+		err := v.Scan(inputValue[0])
 		return reflect.ValueOf(v), err
 	})
 }

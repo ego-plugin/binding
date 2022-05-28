@@ -6,12 +6,11 @@ package binding
 
 import (
 	"fmt"
-	"github.com/ego-plugin/fields"
+	"github.com/ego-plugin/binding/fields"
 	"github.com/go-playground/validator/v10"
 	"reflect"
 	"strings"
 	"sync"
-	"time"
 )
 
 type defaultValidator struct {
@@ -93,18 +92,18 @@ func (v *defaultValidator) GetValidate() *validator.Validate {
 func (v *defaultValidator) init() {
 	// 注册string数组类型
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[string]); ok {
+		if val, ok := value.Interface().(fields.String); ok {
 			return val.Val
 		}
 		return nil
-	}, fields.FORM[string]{})
+	}, fields.String{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[bool]); ok {
+		if val, ok := value.Interface().(fields.Bool); ok {
 			return val.Val
 		}
 		return nil
-	}, fields.FORM[bool]{})
+	}, fields.Bool{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(fields.Date); ok {
@@ -114,111 +113,6 @@ func (v *defaultValidator) init() {
 	}, fields.Date{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.Decimal); ok {
-			return val.Decimal
-		}
-		return nil
-	}, fields.Decimal{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[float32]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[float32]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[float64]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[float64]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[int32]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[int32]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[int]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[int]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[int8]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[int8]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[int16]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[int16]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[int32]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[int32]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[int64]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[int64]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[uint32]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[uint32]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[uint]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[uint]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[uint8]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[uint8]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[uint16]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[uint16]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[uint32]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[uint32]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[uint64]); ok {
-			return val.Val
-		}
-		return nil
-	}, fields.FORM[uint64]{})
-
-	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
 		if val, ok := value.Interface().(fields.Time); ok {
 			return val.Val
 		}
@@ -226,16 +120,65 @@ func (v *defaultValidator) init() {
 	}, fields.Time{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.FORM[time.Time]); ok {
-			return val.Val
+		if val, ok := value.Interface().(fields.Decimal); ok {
+			return val.Decimal
 		}
 		return nil
-	}, fields.FORM[time.Time]{})
+	}, fields.Decimal{})
 
 	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
-		if val, ok := value.Interface().(fields.JSON); ok {
+		if val, ok := value.Interface().(fields.Float32); ok {
 			return val.Val
 		}
 		return nil
-	}, fields.JSON{})
+	}, fields.Float32{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Float64); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Float64{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Int32); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Int32{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Int); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Int{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Int64); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Int64{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Uint64); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Uint64{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Uint32); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Uint32{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Uint); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Uint{})
 }
