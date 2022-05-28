@@ -38,7 +38,7 @@ func (n *Int64) NilValue() *Int64 {
 	return n
 }
 
-func (n *Int64) PtrValue() *int64 {
+func (n *Int64) Ptr() *int64 {
 	if !n.Valid {
 		return nil
 	}

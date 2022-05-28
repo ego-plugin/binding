@@ -40,7 +40,7 @@ func (n *Date) String() string {
 	return n.Val.Format(timeFormat10)
 }
 
-func (n *Date) PtrValue() *time.Time {
+func (n *Date) Ptr() *time.Time {
 	if !n.Valid {
 		return nil
 	}

@@ -37,7 +37,7 @@ func (n *Time) NilValue() *Time {
 	return n
 }
 
-func (n *Time) PtrValue() *time.Time {
+func (n *Time) Ptr() *time.Time {
 	if !n.Valid {
 		return nil
 	}

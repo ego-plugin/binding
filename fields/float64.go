@@ -37,7 +37,7 @@ func (n *Float64) NilValue() *Float64 {
 	return n
 }
 
-func (n *Float64) PtrValue() *float64 {
+func (n *Float64) Ptr() *float64 {
 	if !n.Valid {
 		return nil
 	}

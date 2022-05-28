@@ -38,7 +38,7 @@ func (n *Int) NilValue() *Int {
 	return n
 }
 
-func (n *Int) PtrValue() *int {
+func (n *Int) Ptr() *int {
 	if !n.Valid {
 		return nil
 	}

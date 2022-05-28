@@ -18,6 +18,13 @@ func (d *Decimal) NilValue() *Decimal {
 	return d
 }
 
+func (d *Decimal) Ptr() *decimal.NullDecimal {
+	if !d.Valid {
+		return nil
+	}
+	return &d.NullDecimal
+}
+
 // UnmarshalMsgpack implements the msgpack.UnmarshalMsgpack interface.
 func (d *Decimal) UnmarshalMsgpack(b []byte) error {
 	// scan for null

@@ -37,7 +37,7 @@ func (n *Bool) NilValue() *Bool {
 	return n
 }
 
-func (n *Bool) PtrValue() *bool {
+func (n *Bool) Ptr() *bool {
 	if !n.Valid {
 		return nil
 	}

@@ -38,7 +38,7 @@ func (n *Int32) NilValue() *Int32 {
 	return n
 }
 
-func (n *Int32) PtrValue() *int32 {
+func (n *Int32) Ptr() *int32 {
 	if !n.Valid {
 		return nil
 	}

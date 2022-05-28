@@ -31,14 +31,14 @@ func (n Uint32) Value() (driver.Value, error) {
 	return n.Val, nil
 }
 
-func (n *Uint32) PtrValue() *Uint32 {
+func (n *Uint32) NilValue() *Uint32 {
 	if !n.Valid {
 		return nil
 	}
 	return n
 }
 
-func (n *Uint32) NilUint32() *uint32 {
+func (n *Uint32) Ptr() *uint32 {
 	if !n.Valid {
 		return nil
 	}

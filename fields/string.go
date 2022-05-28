@@ -31,7 +31,7 @@ func (n *String) NilValue() *String {
 	return n
 }
 
-func (n *String) PtrValue() *string {
+func (n *String) Ptr() *string {
 	if !n.Valid {
 		return nil
 	}

@@ -37,7 +37,7 @@ func (n *Float32) NilValue() *Float32 {
 	return n
 }
 
-func (n *Float32) PtrValue() *float32 {
+func (n *Float32) Ptr() *float32 {
 	if !n.Valid {
 		return nil
 	}
