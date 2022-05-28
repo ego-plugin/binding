@@ -56,10 +56,7 @@ func (n *String) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	bytesBuffer := bytes.NewBuffer(b)
-	err := binary.Read(bytesBuffer, binary.BigEndian, n.Val)
-	n.Valid = err == nil
-	return err
+	return n.Scan(b)
 }
 
 func (n String) MarshalMsgpack() ([]byte, error) {
