@@ -17,7 +17,7 @@ import (
 var (
 	errNilPtr            = errors.New("destination pointer is nil") // 指针为空错误
 	errInvalidTimestring = errors.New("binding: invalid time string")
-	nullString           = []byte("null")
+	nullString           = []byte("")
 	Location             = time.Local
 	timeRegexNumber      = regexp.MustCompile(`^\d+$`)
 )
