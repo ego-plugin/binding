@@ -56,8 +56,8 @@ func (n *Float32) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	var s interface{}
-	if err := json.Unmarshal(b, &s); err != nil {
+	var s *float32
+	if err := json.Unmarshal(b, s); err != nil {
 		return err
 	}
 	return n.Scan(s)
@@ -75,7 +75,7 @@ func (n *Float32) UnmarshalMsgpack(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	var s interface{}
+	var s *float32
 	if err := msgpack.Unmarshal(b, &s); err != nil {
 		return err
 	}

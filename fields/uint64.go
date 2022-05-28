@@ -47,6 +47,7 @@ func (n *Uint64) Ptr() *uint64 {
 
 func (n Uint64) MarshalJSON() ([]byte, error) {
 	if n.Valid {
+
 		return json.Marshal(n.Val)
 	}
 	return nullString, nil
@@ -57,8 +58,8 @@ func (n *Uint64) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	var s interface{}
-	if err := json.Unmarshal(b, &s); err != nil {
+	var s *uint64
+	if err := json.Unmarshal(b, s); err != nil {
 		return err
 	}
 	return n.Scan(s)
@@ -76,8 +77,8 @@ func (n *Uint64) UnmarshalMsgpack(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	var s interface{}
-	if err := msgpack.Unmarshal(b, &s); err != nil {
+	var s *uint64
+	if err := msgpack.Unmarshal(b, s); err != nil {
 		return err
 	}
 	return n.Scan(s)
