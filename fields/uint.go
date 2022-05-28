@@ -57,11 +57,12 @@ func (n *Uint) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	var s *uint
-	if err := json.Unmarshal(b, s); err != nil {
+	if err := json.Unmarshal(b, &n.Val); err != nil {
+		n.Valid = false
 		return err
 	}
-	return n.Scan(s)
+	n.Valid = true
+	return nil
 }
 
 func (n Uint) MarshalMsgpack() ([]byte, error) {
@@ -76,11 +77,12 @@ func (n *Uint) UnmarshalMsgpack(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return n.Scan(nil)
 	}
-	var s *uint
-	if err := msgpack.Unmarshal(b, s); err != nil {
+	if err := msgpack.Unmarshal(b, &n.Val); err != nil {
+		n.Valid = false
 		return err
 	}
-	return n.Scan(s)
+	n.Valid = true
+	return nil
 }
 
 var (

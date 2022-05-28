@@ -31,7 +31,7 @@ func (d *Decimal) UnmarshalMsgpack(b []byte) error {
 	if bytes.Equal(b, nullString) {
 		return d.Scan(nil)
 	}
-	var s interface{}
+	var s string
 	if err := msgpack.Unmarshal(b, &s); err != nil {
 		return err
 	}
