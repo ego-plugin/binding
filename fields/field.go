@@ -129,7 +129,7 @@ func convertAssign(dest, src interface{}) error {
 			*d = bv
 		}
 		return err
-	case *interface{}:
+	case *any:
 		*d = src
 		return nil
 	}

@@ -14,13 +14,13 @@ type Uint64 struct {
 }
 
 // Scan 扫描写入值 interface.
-func (n Uint64) Scan(value interface{}) (err error) {
+func (n *Uint64) Scan(value interface{}) (err error) {
 	if value == nil {
 		n.Val, n.Valid = 0, false
 		return err
 	}
 	err = convertAssign(&n.Val, value)
-	n.Valid = err == nil
+	n.Valid = (err == nil)
 	return err
 }
 

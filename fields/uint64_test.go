@@ -7,14 +7,16 @@ import (
 )
 
 type formuint64 struct {
-	Code Uint64   `json:"code,omitempty" msgpack:"name,omitempty"`
-	Num  []Uint64 `json:"num,omitempty" msgpack:"num,omitempty"`
-	An   uint64   `json:"an,omitempty" msgpack:"an,omitempty"`
+	Code Uint64 `json:"code,omitempty" msgpack:"name,omitempty"`
+	//Num  []Uint64 `json:"num,omitempty" msgpack:"num,omitempty"`
+	An uint64 `json:"an,omitempty" msgpack:"an,omitempty"`
 }
 
 func TestUint64_MarshalJSON(t *testing.T) {
 	form := new(formuint64)
-	//form.Code.Scan(0)
+	if err := form.Code.Scan(2); err != nil {
+		t.Errorf("scan: %s", err)
+	}
 	t.Logf("%v", form)
 	b, err := json.Marshal(form)
 	if err != nil {
