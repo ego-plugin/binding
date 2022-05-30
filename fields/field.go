@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 	"regexp"
@@ -359,4 +360,65 @@ func StringToBytes(s string) []byte {
 // BytesToString converts byte slice to string without a memory allocation.
 func BytesToString(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
+}
+
+// SetDefaultValue TAG 默认值 `default:""`
+func SetDefaultValue(structValue interface{}) error {
+	defer func() {
+		if err := recover(); err != nil {
+			logrus.Error(err)
+		}
+	}()
+
+	typeof := reflect.TypeOf(structValue)
+	if typeof.Kind() != reflect.Ptr || typeof.Elem().Kind() != reflect.Struct {
+		return nil
+	}
+
+	valueOf := reflect.ValueOf(structValue)
+	for i := 0; i < typeof.Elem().NumField(); i++ {
+		// 判断是否是0值
+		if !valueOf.Elem().Field(i).IsZero() {
+			continue
+		}
+
+		defaultValue := typeof.Elem().Field(i).Tag.Get("default")
+		if defaultValue == "" {
+			continue
+		}
+
+		switch typeof.Elem().Field(i).Type.Kind() {
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+			if v, err := strconv.ParseInt(defaultValue, 10, 64); err == nil {
+				valueOf.Elem().Field(i).SetInt(v)
+			}
+			break
+		case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+			if v, err := strconv.ParseInt(defaultValue, 10, 64); err == nil {
+				valueOf.Elem().Field(i).SetInt(v)
+			}
+			break
+		case reflect.Float32, reflect.Float64:
+			if v, err := strconv.ParseFloat(defaultValue, 64); err == nil {
+				valueOf.Elem().Field(i).SetFloat(v)
+			}
+			break
+		case reflect.Bool:
+			if v, err := strconv.ParseBool(defaultValue); err == nil {
+				valueOf.Elem().Field(i).SetBool(v)
+			}
+			break
+		case reflect.String:
+			valueOf.Elem().Field(i).SetString(defaultValue)
+			break
+		case reflect.Struct:
+			// 默认数据库类型
+			x, ok := valueOf.Elem().Field(i).Addr().Interface().(sql.Scanner)
+			if ok {
+				_ = x.Scan(defaultValue)
+			}
+			break
+		}
+	}
+	return nil
 }

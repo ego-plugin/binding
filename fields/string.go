@@ -14,7 +14,7 @@ type String struct {
 }
 
 // Scan 扫描写入值 interface.
-func (n *String) Scan(value interface{}) (err error) {
+func (n *String) Scan(value any) (err error) {
 	if value == nil {
 		n.Val, n.Valid = "", false
 		return err

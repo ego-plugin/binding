@@ -5,6 +5,7 @@
 package binding
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"reflect"
@@ -97,16 +98,6 @@ func mapping(value reflect.Value, field reflect.StructField, setter setter, tag 
 		return isSetted, nil
 	}
 
-	if vKind != reflect.Struct || !field.Anonymous {
-		ok, err := tryToSetValue(value, field, setter, tag)
-		if err != nil {
-			return false, err
-		}
-		if ok {
-			return true, nil
-		}
-	}
-
 	if vKind == reflect.Struct {
 		tValue := value.Type()
 
@@ -132,49 +123,12 @@ type setOptions struct {
 	defaultValue    string
 }
 
-func tryToSetValue(value reflect.Value, field reflect.StructField, setter setter, tag string) (bool, error) {
-	var tagValue string
-	var setOpt setOptions
-
-	tagValue = field.Tag.Get(tag)
-	tagValue, opts := head(tagValue, ",")
-
-	if tagValue == "" { // default value is FieldName
-		tagValue = field.Name
-	}
-	if tagValue == "" { // when field is "emptyField" variable
-		return false, nil
-	}
-
-	var opt string
-	for len(opts) > 0 {
-		opt, opts = head(opts, ",")
-
-		if k, v := head(opt, "="); k == "default" {
-			setOpt.isDefaultExists = true
-			setOpt.defaultValue = v
-		}
-	}
-
-	return setter.TrySet(value, field, tagValue, setOpt)
-}
-
 func setByForm(value reflect.Value, field reflect.StructField, form map[string][]string, tagValue string, opt setOptions) (isSetted bool, err error) {
 	vs, ok := form[tagValue]
 	if !ok && !opt.isDefaultExists {
 		return false, nil
 	}
-	// 给数据库类型付值
-	for keyType, vFn := range RegisterFormType.Get() {
-		if value.Type() == keyType {
-			v, err := vFn(vs)
-			if err != nil {
-				return true, err
-			}
-			value.Set(v)
-			continue
-		}
-	}
+
 	switch value.Kind() {
 	case reflect.Slice:
 		if !ok {
@@ -237,6 +191,10 @@ func setWithProperType(val string, value reflect.Value, field reflect.StructFiel
 	case reflect.String:
 		value.SetString(val)
 	case reflect.Struct:
+		// 付值sql类型
+		if x, ok := value.Addr().Interface().(sql.Scanner); ok {
+			return x.Scan(val)
+		}
 		switch value.Interface().(type) {
 		case time.Time:
 			return setTimeField(val, field, value)

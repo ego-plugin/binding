@@ -15,6 +15,7 @@ require (
 	github.com/ego-plugin/fields v0.0.0-20220527083332-3a7c006ba835 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
+	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect

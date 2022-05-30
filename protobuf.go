@@ -5,6 +5,7 @@
 package binding
 
 import (
+	"github.com/ego-plugin/binding/fields"
 	"io/ioutil"
 	"net/http"
 
@@ -20,6 +21,10 @@ func (protobufBinding) Name() string {
 func (b protobufBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 	buf, err := ioutil.ReadAll(req.Body)
 	if err != nil {
+		return err
+	}
+	// 写入默认值
+	if err = fields.SetDefaultValue(obj); err != nil {
 		return err
 	}
 	return b.BindBody(buf, obj, lang)

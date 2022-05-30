@@ -1,6 +1,7 @@
 package binding
 
 import (
+	"github.com/ego-plugin/binding/fields"
 	"net/http"
 	"net/textproto"
 	"reflect"
@@ -13,7 +14,10 @@ func (headerBinding) Name() string {
 }
 
 func (headerBinding) Bind(req *http.Request, obj interface{}, lang string) error {
-
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	if err := mapHeader(obj, req.Header); err != nil {
 		return err
 	}

@@ -9,6 +9,7 @@ package binding
 
 import (
 	"bytes"
+	"github.com/ego-plugin/binding/fields"
 	"io"
 	"net/http"
 
@@ -22,10 +23,18 @@ func (msgpackBinding) Name() string {
 }
 
 func (msgpackBinding) Bind(req *http.Request, obj interface{}, lang string) error {
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	return decodeMsgPack(req.Body, obj, lang)
 }
 
 func (msgpackBinding) BindBody(body []byte, obj interface{}, lang string) error {
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	return decodeMsgPack(bytes.NewReader(body), obj, lang)
 }
 

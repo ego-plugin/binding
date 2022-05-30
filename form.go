@@ -5,6 +5,7 @@
 package binding
 
 import (
+	"github.com/ego-plugin/binding/fields"
 	"net/http"
 )
 
@@ -19,14 +20,22 @@ func (formBinding) Name() string {
 }
 
 func (formBinding) Bind(req *http.Request, obj interface{}, lang string) error {
+	// 检查
 	if err := req.ParseForm(); err != nil {
 		return err
 	}
+
 	if err := req.ParseMultipartForm(defaultMemory); err != nil {
 		if err != http.ErrNotMultipart {
 			return err
 		}
 	}
+
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
+
 	if err := mapForm(obj, req.Form); err != nil {
 		return err
 	}
@@ -41,6 +50,10 @@ func (formPostBinding) Bind(req *http.Request, obj interface{}, lang string) err
 	if err := req.ParseForm(); err != nil {
 		return err
 	}
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	if err := mapForm(obj, req.PostForm); err != nil {
 		return err
 	}
@@ -53,6 +66,10 @@ func (formMultipartBinding) Name() string {
 
 func (formMultipartBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 	if err := req.ParseMultipartForm(defaultMemory); err != nil {
+		return err
+	}
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
 		return err
 	}
 	if err := mappingByPtr(obj, (*multipartRequest)(req), "form"); err != nil {

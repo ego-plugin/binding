@@ -6,6 +6,7 @@ package binding
 
 import (
 	"bytes"
+	"github.com/ego-plugin/binding/fields"
 	"io"
 	"net/http"
 
@@ -19,10 +20,18 @@ func (yamlBinding) Name() string {
 }
 
 func (yamlBinding) Bind(req *http.Request, obj interface{}, lang string) error {
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	return decodeYAML(req.Body, obj, lang)
 }
 
 func (yamlBinding) BindBody(body []byte, obj interface{}, lang string) error {
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	return decodeYAML(bytes.NewReader(body), obj, lang)
 }
 

@@ -7,6 +7,7 @@ package binding
 import (
 	"bytes"
 	"errors"
+	"github.com/ego-plugin/binding/fields"
 	"io"
 	"net/http"
 
@@ -34,10 +35,18 @@ func (jsonBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 	if req == nil || req.Body == nil {
 		return errors.New("invalid request")
 	}
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	return decodeJSON(req.Body, obj, lang)
 }
 
 func (jsonBinding) BindBody(body []byte, obj interface{}, lang string) error {
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
 	return decodeJSON(bytes.NewReader(body), obj, lang)
 }
 

@@ -4,7 +4,10 @@
 
 package binding
 
-import "net/http"
+import (
+	"github.com/ego-plugin/binding/fields"
+	"net/http"
+)
 
 type queryBinding struct{}
 
@@ -13,6 +16,11 @@ func (queryBinding) Name() string {
 }
 
 func (queryBinding) Bind(req *http.Request, obj interface{}, lang string) error {
+	// 写入默认值
+	if err := fields.SetDefaultValue(obj); err != nil {
+		return err
+	}
+
 	values := req.URL.Query()
 	if err := mapForm(obj, values); err != nil {
 		return err
