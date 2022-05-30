@@ -389,17 +389,17 @@ func SetDefaultValue(structValue interface{}) error {
 
 		switch typeof.Elem().Field(i).Type.Kind() {
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-			if v, err := strconv.ParseInt(defaultValue, 10, 64); err == nil {
+			if v, err := strconv.ParseInt(defaultValue, 10, typeof.Elem().Field(i).Type.Bits()); err == nil {
 				valueOf.Elem().Field(i).SetInt(v)
 			}
 			break
 		case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-			if v, err := strconv.ParseInt(defaultValue, 10, 64); err == nil {
-				valueOf.Elem().Field(i).SetInt(v)
+			if v, err := strconv.ParseUint(defaultValue, 10, typeof.Elem().Field(i).Type.Bits()); err == nil {
+				valueOf.Elem().Field(i).SetUint(v)
 			}
 			break
 		case reflect.Float32, reflect.Float64:
-			if v, err := strconv.ParseFloat(defaultValue, 64); err == nil {
+			if v, err := strconv.ParseFloat(defaultValue, typeof.Elem().Field(i).Type.Bits()); err == nil {
 				valueOf.Elem().Field(i).SetFloat(v)
 			}
 			break
