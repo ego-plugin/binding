@@ -188,4 +188,18 @@ func (v *defaultValidator) init() {
 		}
 		return nil
 	}, fields.Uint{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Strings); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Strings{})
+
+	v.validate.RegisterCustomTypeFunc(func(value reflect.Value) interface{} {
+		if val, ok := value.Interface().(fields.Uint64s); ok {
+			return val.Val
+		}
+		return nil
+	}, fields.Uint64s{})
 }
