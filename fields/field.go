@@ -6,13 +6,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/sirupsen/logrus"
-	"github.com/vmihailenco/msgpack/v5"
 	"reflect"
 	"regexp"
 	"strconv"
 	"time"
 	"unsafe"
+
+	"github.com/sirupsen/logrus"
+	"github.com/vmihailenco/msgpack/v5"
 )
 
 var (
@@ -384,6 +385,9 @@ func SetDefaultValue(structValue interface{}) error {
 
 		defaultValue := typeof.Elem().Field(i).Tag.Get("default")
 		if defaultValue == "" {
+			if typeof.Elem().Field(i).Type.Kind() == reflect.Struct {
+				SetDefaultValue(reflect.NewAt(typeof.Elem().Field(i).Type, unsafe.Pointer(valueOf.Elem().Field(i).UnsafeAddr())).Elem().Addr().Interface())
+			}
 			continue
 		}
 
@@ -413,8 +417,7 @@ func SetDefaultValue(structValue interface{}) error {
 			break
 		case reflect.Struct:
 			// 默认数据库类型
-			x, ok := valueOf.Elem().Field(i).Addr().Interface().(sql.Scanner)
-			if ok {
+			if x, ok := valueOf.Elem().Field(i).Addr().Interface().(sql.Scanner); ok {
 				_ = x.Scan(defaultValue)
 			}
 			break

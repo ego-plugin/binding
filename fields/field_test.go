@@ -6,11 +6,15 @@ import (
 )
 
 func TestSetDefaultValue(t *testing.T) {
-	type test struct {
-		Name     String `json:"name" default:"my name"`
-		Email    string `json:"email" default:"mmmm@qq.com"`
-		Username string `json:"username"`
+	type testa struct {
+		Username String `json:"username" default:"user"`
 		Password string `json:"Password" default:"pwd"`
+	}
+
+	type test struct {
+		Name  String `json:"name" default:"my name"`
+		Email string `json:"email" default:"mmmm@qq.com"`
+		testa
 	}
 
 	v := test{}
