@@ -112,7 +112,7 @@ func Default(method, contentType string) Binding {
 	}
 }
 
-func validate(obj interface{}, lang string) error {
+func Validate(obj interface{}, lang string) error {
 	switch lang {
 	case LANG_ES:
 		if _, ok := ValidatorList[LANG_ES]; ok {

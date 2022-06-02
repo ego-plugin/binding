@@ -7,9 +7,10 @@ package binding
 import (
 	"bytes"
 	"encoding/xml"
-	"github.com/ego-plugin/binding/fields"
 	"io"
 	"net/http"
+
+	"github.com/ego-plugin/binding/fields"
 )
 
 type xmlBinding struct{}
@@ -33,10 +34,11 @@ func (xmlBinding) BindBody(body []byte, obj interface{}, lang string) error {
 	}
 	return decodeXML(bytes.NewReader(body), obj, lang)
 }
+
 func decodeXML(r io.Reader, obj interface{}, lang string) error {
 	decoder := xml.NewDecoder(r)
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }

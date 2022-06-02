@@ -6,9 +6,10 @@ package binding
 
 import (
 	"bytes"
-	"github.com/ego-plugin/binding/fields"
 	"io"
 	"net/http"
+
+	"github.com/ego-plugin/binding/fields"
 
 	"gopkg.in/yaml.v2"
 )
@@ -40,5 +41,5 @@ func decodeYAML(r io.Reader, obj interface{}, lang string) error {
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }

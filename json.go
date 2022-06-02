@@ -6,12 +6,12 @@ package binding
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
-	"github.com/ego-plugin/binding/fields"
 	"io"
 	"net/http"
 
-	"encoding/json"
+	"github.com/ego-plugin/binding/fields"
 )
 
 // EnableDecoderUseNumber is used to call the UseNumber method on the JSON
@@ -61,5 +61,5 @@ func decodeJSON(r io.Reader, obj interface{}, lang string) error {
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }

@@ -5,15 +5,18 @@
 package binding
 
 import (
-	"github.com/ego-plugin/binding/fields"
 	"net/http"
+
+	"github.com/ego-plugin/binding/fields"
 )
 
 const defaultMemory = 32 << 20
 
-type formBinding struct{}
-type formPostBinding struct{}
-type formMultipartBinding struct{}
+type (
+	formBinding          struct{}
+	formPostBinding      struct{}
+	formMultipartBinding struct{}
+)
 
 func (formBinding) Name() string {
 	return "form"
@@ -39,7 +42,7 @@ func (formBinding) Bind(req *http.Request, obj interface{}, lang string) error {
 	if err := mapForm(obj, req.Form); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }
 
 func (formPostBinding) Name() string {
@@ -57,7 +60,7 @@ func (formPostBinding) Bind(req *http.Request, obj interface{}, lang string) err
 	if err := mapForm(obj, req.PostForm); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }
 
 func (formMultipartBinding) Name() string {
@@ -76,5 +79,5 @@ func (formMultipartBinding) Bind(req *http.Request, obj interface{}, lang string
 		return err
 	}
 
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }

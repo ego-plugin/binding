@@ -21,5 +21,5 @@ func (uriBinding) BindUri(m map[string][]string, obj interface{}, lang string) e
 	if err := mapUri(obj, m); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }

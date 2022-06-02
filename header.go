@@ -1,10 +1,11 @@
 package binding
 
 import (
-	"github.com/ego-plugin/binding/fields"
 	"net/http"
 	"net/textproto"
 	"reflect"
+
+	"github.com/ego-plugin/binding/fields"
 )
 
 type headerBinding struct{}
@@ -22,7 +23,7 @@ func (headerBinding) Bind(req *http.Request, obj interface{}, lang string) error
 		return err
 	}
 
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }
 
 func mapHeader(ptr interface{}, h map[string][]string) error {

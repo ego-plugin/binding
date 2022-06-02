@@ -1,52 +1,52 @@
-### Fields:
+### 字段 Fields:
 
-| Tag | Description |
-| - | - |
-| eqcsfield | Field Equals Another Field (relative)|
-| eqfield | Field Equals Another Field |
-| fieldcontains | NOT DOCUMENTED IN doc.go |
-| fieldexcludes | NOT DOCUMENTED IN doc.go |
-| gtcsfield | Field Greater Than Another Relative Field |
-| gtecsfield | Field Greater Than or Equal To Another Relative Field |
-| gtefield | Field Greater Than or Equal To Another Field |
-| gtfield | Field Greater Than Another Field |
-| ltcsfield | Less Than Another Relative Field |
-| ltecsfield | Less Than or Equal To Another Relative Field |
-| ltefield | Less Than or Equal To Another Field |
-| ltfield | Less Than Another Field |
-| necsfield | Field Does Not Equal Another Field (relative) |
-| nefield | Field Does Not Equal Another Field |
+| Tag | 中文描述 | Description |
+| - | - | - |
+| eqcsfield | 字段等于另一个字段 | Field Equals Another Field (relative)|
+| eqfield | 字段等于另一个字段 |  Field Equals Another Field |
+| fieldcontains | doc.go 中未记录 | NOT DOCUMENTED IN doc.go |
+| fieldexcludes | doc.go 中未记录 | NOT DOCUMENTED IN doc.go |
+| gtcsfield | 字段大于另一个字段|  Field Greater Than Another Relative Field |
+| gtecsfield | 字段大于等于另一个字段 | Field Greater Than or Equal To Another Relative Field |
+| gtefield | 字段大于或等于另一个字段 |  Field Greater Than or Equal To Another Field |
+| gtfield | 场大于另一个场 |  Field Greater Than Another Field |
+| ltcsfield | 小于另一个相对字段 |  Less Than Another Relative Field |
+| ltecsfield |小于或等于另一个相对字段|  Less Than or Equal To Another Relative Field |
+| ltefield | 小于或等于另一个字段 | Less Than or Equal To Another Field |
+| ltfield | 少于另一个领域 | Less Than Another Field |
+| necsfield | 字段不等于另一个字段（相对）|  Field Does Not Equal Another Field (relative) |
+| nefield | 字段不等于另一个字段 | Field Does Not Equal Another Field |
 
-### Network:
+### 网络 Network:
 
-| Tag | Description |
-| - | - |
-| cidr | Classless Inter-Domain Routing CIDR |
-| cidrv4 | Classless Inter-Domain Routing CIDRv4 |
-| cidrv6 | Classless Inter-Domain Routing CIDRv6 |
-| datauri | Data URL |
-| fqdn | Full Qualified Domain Name (FQDN) |
-| hostname | Hostname RFC 952 |
-| hostname_port | HostPort |
-| hostname_rfc1123 | Hostname RFC 1123 |
-| ip | Internet Protocol Address IP |
-| ip4_addr | Internet Protocol Address IPv4 |
-| ip6_addr |Internet Protocol Address IPv6 |
-| ip_addr | Internet Protocol Address IP |
-| ipv4 | Internet Protocol Address IPv4 |
-| ipv6 | Internet Protocol Address IPv6 |
-| mac | Media Access Control Address MAC |
-| tcp4_addr | Transmission Control Protocol Address TCPv4 |
-| tcp6_addr | Transmission Control Protocol Address TCPv6 |
-| tcp_addr | Transmission Control Protocol Address TCP |
-| udp4_addr | User Datagram Protocol Address UDPv4 |
-| udp6_addr | User Datagram Protocol Address UDPv6 |
-| udp_addr | User Datagram Protocol Address UDP |
-| unix_addr | Unix domain socket end point Address |
-| uri | URI String |
-| url | URL String |
-| url_encoded | URL Encoded |
-| urn_rfc2141 | Urn RFC 2141 String |
+| Tag | 中文描述 | Description |
+| - | - | - |
+| cidr |  | Classless Inter-Domain Routing CIDR |
+| cidrv4 |   | Classless Inter-Domain Routing CIDRv4 |
+| cidrv6 |   | Classless Inter-Domain Routing CIDRv6 |
+| datauri |   | Data URL |
+| fqdn |   | Full Qualified Domain Name (FQDN) |
+| hostname |   | Hostname RFC 952 |
+| hostname_port |   | HostPort |
+| hostname_rfc1123 |   | Hostname RFC 1123 |
+| ip |   | Internet Protocol Address IP |
+| ip4_addr |   | Internet Protocol Address IPv4 |
+| ip6_addr |  |Internet Protocol Address IPv6 |
+| ip_addr |   | Internet Protocol Address IP |
+| ipv4  |  | Internet Protocol Address IPv4 |
+| ipv6 |   | Internet Protocol Address IPv6 |
+| mac |   | Media Access Control Address MAC |
+| tcp4_addr |   | Transmission Control Protocol Address TCPv4 |
+| tcp6_addr |   | Transmission Control Protocol Address TCPv6 |
+| tcp_addr |   | Transmission Control Protocol Address TCP |
+| udp4_addr |   | User Datagram Protocol Address UDPv4 |
+| udp6_addr |   | User Datagram Protocol Address UDPv6 |
+| udp_addr |  用户数据报协议地址 UDP | User Datagram Protocol Address UDP |
+| unix_addr |  Unix域套接字端点地址 | Unix domain socket end point Address |
+| uri |  URI 字符串 | URI String |
+| url |  网址字符串 | URL String |
+| url_encoded |  网址编码 | URL Encoded |
+| urn_rfc2141 | 瓮 RFC 2141 字符串  | Urn RFC 2141 String |
 
 ### Strings:
 

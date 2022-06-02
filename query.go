@@ -5,8 +5,9 @@
 package binding
 
 import (
-	"github.com/ego-plugin/binding/fields"
 	"net/http"
+
+	"github.com/ego-plugin/binding/fields"
 )
 
 type queryBinding struct{}
@@ -25,5 +26,5 @@ func (queryBinding) Bind(req *http.Request, obj interface{}, lang string) error 
 	if err := mapForm(obj, values); err != nil {
 		return err
 	}
-	return validate(obj, lang)
+	return Validate(obj, lang)
 }
