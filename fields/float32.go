@@ -5,7 +5,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 )
 
 type Float32 struct {
@@ -28,6 +27,13 @@ func (n Float32) Value() (driver.Value, error) {
 		return nil, nil
 	}
 	return n.Val, nil
+}
+
+func (n Float32) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n *Float32) NilValue() *Float32 {
@@ -82,7 +88,4 @@ func (n *Float32) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_           ValueScanner = (*Float32)(nil)
-	Float32Type              = reflect.TypeOf(Float32{})
-)
+var _ ValueScanner = (*Float32)(nil)

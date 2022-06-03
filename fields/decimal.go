@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"github.com/shopspring/decimal"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 )
 
 type Decimal struct {
@@ -25,6 +24,13 @@ func (d *Decimal) Ptr() *decimal.NullDecimal {
 	return &d.NullDecimal
 }
 
+func (n Decimal) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.NullDecimal.Decimal.String()
+}
+
 // UnmarshalMsgpack implements the msgpack.UnmarshalMsgpack interface.
 func (d *Decimal) UnmarshalMsgpack(b []byte) error {
 	if bytes.Equal(b, nullString) {
@@ -43,10 +49,7 @@ func (d Decimal) MarshalMsgpack() ([]byte, error) {
 	if !d.Valid {
 		return nullString, nil
 	}
-	return d.MarshalText()
+	return msgpack.Marshal(d.NullDecimal.Decimal.String())
 }
 
-var (
-	_           ValueScanner = (*Decimal)(nil)
-	DecimalType              = reflect.TypeOf(Decimal{})
-)
+var _ ValueScanner = (*Decimal)(nil)

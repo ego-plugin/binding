@@ -22,6 +22,7 @@ var (
 	nullString           = []byte("null")
 	Location             = time.Local
 	timeRegexNumber      = regexp.MustCompile(`^\d+$`)
+	ValueScannerType     = reflect.TypeOf((*ValueScanner)(nil)).Elem()
 )
 
 // ValueScanner is the interface that groups the Value and the Scan methods.
@@ -32,6 +33,19 @@ type ValueScanner interface {
 	msgpack.Unmarshaler
 	driver.Valuer
 	sql.Scanner
+	ValidatorScanner
+}
+
+type ValidatorScanner interface {
+	ValidateValuer() any
+}
+
+// ValidateValuer implements validator.CustomTypeFunc
+func ValidateValuer(field reflect.Value) any {
+	if valuer, ok := field.Interface().(ValidatorScanner); ok {
+		return valuer.ValidateValuer()
+	}
+	return nil
 }
 
 // 转换分配值

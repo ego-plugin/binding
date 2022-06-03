@@ -5,7 +5,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 )
 
 type Bool struct {
@@ -21,6 +20,13 @@ func (n *Bool) Scan(value interface{}) (err error) {
 	err = convertAssign(&n.Val, value)
 	n.Valid = err == nil
 	return err
+}
+
+func (n Bool) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n Bool) Value() (driver.Value, error) {
@@ -82,7 +88,4 @@ func (n *Bool) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_        ValueScanner = (*Bool)(nil)
-	BoolType              = reflect.TypeOf(Bool{})
-)
+var _ ValueScanner = (*Bool)(nil)

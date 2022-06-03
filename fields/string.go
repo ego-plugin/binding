@@ -5,7 +5,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 )
 
 type String struct {
@@ -29,6 +28,13 @@ func (n *String) NilValue() *String {
 		return nil
 	}
 	return n
+}
+
+func (n String) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n *String) Ptr() *string {
@@ -81,7 +87,4 @@ func (n *String) UnmarshalMsgpack(b []byte) error {
 	return nil
 }
 
-var (
-	_          ValueScanner = (*String)(nil)
-	StringType              = reflect.TypeOf(String{})
-)
+var _ ValueScanner = (*String)(nil)

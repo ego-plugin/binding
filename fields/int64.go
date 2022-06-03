@@ -5,7 +5,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 )
 
 type Int64 struct {
@@ -29,6 +28,13 @@ func (n Int64) Value() (driver.Value, error) {
 		return nil, nil
 	}
 	return n.Val, nil
+}
+
+func (n Int64) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n *Int64) NilValue() *Int64 {
@@ -83,7 +89,4 @@ func (n *Int64) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_         ValueScanner = (*Int64)(nil)
-	Int64Type              = reflect.TypeOf(Int64{})
-)
+var _ ValueScanner = (*Int64)(nil)

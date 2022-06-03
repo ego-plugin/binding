@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 	"time"
 )
 
@@ -25,6 +24,13 @@ func (n Time) Value() (driver.Value, error) {
 		return nil, nil
 	}
 	return n.Val.Format(timeFormat19), nil
+}
+
+func (n Time) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n *Time) NilValue() *Time {
@@ -127,7 +133,4 @@ func (n *Time) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_        ValueScanner = (*Time)(nil)
-	TimeType              = reflect.TypeOf(Time{})
-)
+var _ ValueScanner = (*Time)(nil)

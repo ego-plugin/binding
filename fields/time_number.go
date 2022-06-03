@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 	"time"
 )
 
@@ -34,6 +33,13 @@ func (n *TimeNumber) Ptr() *time.Time {
 		return nil
 	}
 	return &n.Val
+}
+
+func (n TimeNumber) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n TimeNumber) String() string {
@@ -122,7 +128,4 @@ func (n *TimeNumber) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_              ValueScanner = (*TimeNumber)(nil)
-	TimeNumberType              = reflect.TypeOf(TimeNumber{})
-)
+var _ ValueScanner = (*TimeNumber)(nil)

@@ -5,7 +5,6 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"github.com/vmihailenco/msgpack/v5"
-	"reflect"
 )
 
 type Uint struct {
@@ -36,6 +35,13 @@ func (n *Uint) NilValue() *Uint {
 		return nil
 	}
 	return n
+}
+
+func (n Uint) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
 }
 
 func (n *Uint) Ptr() *uint {
@@ -83,7 +89,4 @@ func (n *Uint) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_        ValueScanner = (*Uint)(nil)
-	UintType              = reflect.TypeOf(Uint{})
-)
+var _ ValueScanner = (*Uint)(nil)

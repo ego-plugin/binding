@@ -48,6 +48,13 @@ func (n *Strings) Scan(value interface{}) (err error) {
 	return errors.New("scan slice err")
 }
 
+func (n Strings) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
+}
+
 func (n Strings) Value() (driver.Value, error) {
 	if !n.Valid {
 		return nil, nil
@@ -109,7 +116,4 @@ func (n *Strings) UnmarshalMsgpack(b []byte) error {
 	return n.Scan(s)
 }
 
-var (
-	_           ValueScanner = (*Strings)(nil)
-	StringsType              = reflect.TypeOf(Strings{})
-)
+var _ ValueScanner = (*Strings)(nil)

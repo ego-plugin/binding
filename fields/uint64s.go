@@ -58,6 +58,13 @@ func (n Uint64s) Value() (driver.Value, error) {
 	return BytesToString(b), err
 }
 
+func (n Uint64s) ValidateValuer() any {
+	if !n.Valid {
+		return nil
+	}
+	return n.Val
+}
+
 func (n *Uint64s) NilValue() *Uint64s {
 	if !n.Valid {
 		return nil
@@ -111,6 +118,5 @@ func (n *Uint64s) UnmarshalMsgpack(b []byte) error {
 }
 
 var (
-	_           ValueScanner = (*Uint64s)(nil)
-	Uint64sType              = reflect.TypeOf(Uint64s{})
+	_ ValueScanner = (*Uint64s)(nil)
 )
