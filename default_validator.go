@@ -91,7 +91,5 @@ func (v *defaultValidator) GetValidate() *validator.Validate {
 
 func (v *defaultValidator) init() {
 	// 注册自定义数据库类型
-	v.validate.RegisterCustomTypeFunc(fields.ValidateValuer,
-		fields.Strings{}, fields.String{}, fields.Int32{}, fields.Int64{}, fields.Int{}, fields.Bool{}, fields.Decimal{},
-		fields.Uint{}, fields.Uint64{}, fields.Uint64s{}, fields.Float32{}, fields.Float64{}, fields.Time{}, fields.TimeDate{}, fields.TimeNumber{})
+	v.validate.RegisterCustomTypeFunc(fields.ValidateValuer, fields.Strings{}, fields.String{}, fields.Int32{}, fields.Int64{}, fields.Int{}, fields.Bool{}, fields.Decimal{}, fields.Uint{}, fields.Uint64{}, fields.Uint64s{}, fields.Float32{}, fields.Float64{}, fields.Time{}, fields.TimeDate{}, fields.TimeNumber{})
 }

@@ -40,9 +40,12 @@ func (n *Strings) Scan(value interface{}) (err error) {
 		n.Valid = err == nil
 		return err
 	case reflect.String:
-		err = msgpack.Unmarshal(StringToBytes(v.String()), &n.Val)
-		n.Valid = err == nil
-		return err
+		b := StringToBytes(v.String())
+		if json.Valid(b) {
+			err = json.Unmarshal(b, &n.Val)
+			n.Valid = err == nil
+			return err
+		}
 	}
 
 	return errors.New("scan slice err")
@@ -59,7 +62,7 @@ func (n Strings) Value() (driver.Value, error) {
 	if !n.Valid {
 		return nil, nil
 	}
-	b, err := msgpack.Marshal(n.Val)
+	b, err := json.Marshal(n.Val)
 	n.Valid = err == nil
 	return BytesToString(b), err
 }
